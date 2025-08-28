@@ -377,7 +377,7 @@ void main() {
 				float NdotV = abs(dot(worldNormal, worldDir));
 				sceneOut += SpatialUpscale5x5(screenTexel >> 1, worldNormal, length(viewPos), NdotV);
 			#else
-				sceneOut += texelFetch(colortex3, screenTexel >> 1, 0), 0).rgb;
+				sceneOut += texelFetch(colortex3, screenTexel >> 1, 0).rgb;
 			#endif
 		#elif defined RSM_ENABLED
 			float NdotV = abs(dot(worldNormal, worldDir));
