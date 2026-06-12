@@ -110,6 +110,7 @@ void main() {
 
 		vec3 transmittance = AtmosphereTransmittance(atmosphereViewPos, worldDir);
 		vec3 skyRadiance = AtmosphereSkyView(atmosphereViewPos, worldDir, sunDirWorld);
+		#ifdef DIMENSION_OVERWORLD
 
 		sceneOut = skyRadiance;
 
@@ -139,6 +140,9 @@ void main() {
 
 			sceneOut += celestial * transmittance;
 		}
+		#else
+			sceneOut = vec3(0.0);
+		#endif
 	} else {
 		vec3 screenPos = vec3(screenCoord, loadDepth0(texelPos));
         #ifdef PARALLAX_SHADOW

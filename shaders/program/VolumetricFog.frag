@@ -74,12 +74,12 @@ void main() {
 
 	mat2x3 volFogData = mat2x3(vec3(0.0), vec3(1.0));
 
-	#ifdef VOLUMETRIC_FOG
+	#if defined VOLUMETRIC_FOG && defined DIMENSION_OVERWORLD
 		if (isEyeInWater == 0) {
 			volFogData = RaymarchAtmosphericFog(gbufferModelViewInverse[3].xyz, worldPos, dither, VF_MAX_SAMPLES);
 		}
 	#endif
-	#ifdef UW_VOLUMETRIC_FOG
+	#if defined UW_VOLUMETRIC_FOG && defined DIMENSION_OVERWORLD
 		if (isEyeInWater == 1) {
 			volFogData = RaymarchWaterFog(worldPos - gbufferModelViewInverse[3].xyz, dither);
 		}

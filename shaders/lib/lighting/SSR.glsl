@@ -19,10 +19,12 @@ vec4 CalculateSpecularReflections(Material material, vec3 worldNormal, vec3 worl
 	if (NdotL < EPS) return vec4(0.0);
 
 	vec4 reflection = vec4(0.0, 0.0, 0.0, FP16_MAX);
+	#ifdef DIMENSION_OVERWORLD
 	if (skylight > EPS && isEyeInWater == 0) {
 		vec3 skyRadiance = textureBicubic(skyEnvMapTex, saturate(ProjectCubemap(lightDir, 96.0))).rgb;
 		reflection.rgb = skyRadiance * smoothstep(0.4, 0.8, skylight);
 	}
+	#endif
 
 	uint stepCount = uint(SSRT_MAX_SAMPLES * oms(material.roughness * 0.75));
     vec3 hitPos;

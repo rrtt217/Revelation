@@ -1,4 +1,5 @@
 #version 460 compatibility
+#define DIMENSION_OVERWORLD
 
 #define CLEAR_IMAGE skyMapImg
 #define CLEAR_IMAGE_FORMAT image2D
