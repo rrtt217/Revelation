@@ -24,6 +24,8 @@ vec4 CalculateSpecularReflections(Material material, vec3 worldNormal, vec3 worl
 		vec3 skyRadiance = textureBicubic(skyEnvMapTex, saturate(ProjectCubemap(lightDir, 96.0))).rgb;
 		reflection.rgb = skyRadiance * smoothstep(0.4, 0.8, skylight);
 	}
+	#else
+		reflection.rgb = netherFogColor * 0.025;
 	#endif
 
 	uint stepCount = uint(SSRT_MAX_SAMPLES * oms(material.roughness * 0.75));
