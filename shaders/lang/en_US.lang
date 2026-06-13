@@ -64,8 +64,10 @@ value.RENDER_MODE.1=Gameplay
 
 # Environment
 option.PLANET_GROUND=Planet Ground
-option.VIEWER_BASE_ALTITUDE=Viewer Base Altitude
-suffix.VIEWER_BASE_ALTITUDE=m
+option.OVERWORLD_VIEWER_BASE_ALTITUDE=Overworld Viewer Base Altitude
+suffix.OVERWORLD_VIEWER_BASE_ALTITUDE=m
+option.END_VIEWER_BASE_ALTITUDE=End Viewer Base Altitude
+suffix.END_VIEWER_BASE_ALTITUDE=m
 
 option.ATMOSPHERE_THICKNESS=Atmosphere Thickness
 suffix.ATMOSPHERE_THICKNESS=m
