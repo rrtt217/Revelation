@@ -141,7 +141,7 @@ void main() {
 			sceneOut += celestial * transmittance;
 		}
 		#else
-			sceneOut = vec3(0.0);
+			sceneOut = netherFogColor * 0.07;
 		#endif
 	} else {
 		vec3 screenPos = vec3(screenCoord, loadDepth0(texelPos));
@@ -222,7 +222,7 @@ void main() {
 		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 		vec3 sunlightBase = cloudShadow * saturate(lightmap.y * 1e6 + float(isEyeInWater)) * global.directIlluminance;
 		#else
-		vec3 sunlightBase = vec3(0.0);
+		vec3 sunlightBase = netherFogColor * 0.07;
 		#endif
 
 		float distanceFade = linearstep(shadowDistance - 8.0, shadowDistance, length(viewPos.xz));
@@ -350,10 +350,9 @@ void main() {
 		// Minimal ambient light
 		diffuseRadiance += (worldNormal.y * 0.4 + 0.6) * max(MINIMUM_AMBIENT_BRIGHTNESS, 5e-3 * nightVision) * ao;
 
-		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 		// Apply diffuse color (baseColor * (1 - metallic))
 		material.metallic *= 0.2 * lightmap.y + 0.8;
-		#endif
+
 		diffuseRadiance *= albedo * oms(material.metallic);
 
 		// Indirect specular

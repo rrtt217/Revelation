@@ -64,6 +64,8 @@ vec4 CalculateSpecularReflections(vec3 viewPos, vec3 worldNormal, vec3 worldDir,
 		vec3 skyRadiance = textureBicubic(skyEnvMapTex, ProjectCubemap(rayDir, 96.0)).rgb;
 		reflection = skyRadiance * smoothstep(0.4, 0.8, skylight);
 	}
+	#else
+		reflection = netherFogColor * 0.025;
 	#endif
 
 	float ior = waterMask ? isEyeInWater == 1 ? 1.0 / WATER_IOR : WATER_IOR : GLASS_IOR;
@@ -161,7 +163,7 @@ void main() {
 		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 		lightingOut.rgb = global.skyUpIlluminance * cube(lightmap.y);
 		#else
-		lightingOut.rgb = vec3(0.0);
+		lightingOut.rgb = netherFogColor * 0.025;
 		#endif
 
 		// Blocklight

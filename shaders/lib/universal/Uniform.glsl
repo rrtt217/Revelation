@@ -158,6 +158,7 @@ uniform vec3 sunDirWorld;
 uniform vec3 moonDirWorld;
 uniform vec3 shadowDirWorld;
 uniform vec3 shadowDirView;
+uniform vec3 netherFogColor;
 
 uniform bool historyReset;
 
