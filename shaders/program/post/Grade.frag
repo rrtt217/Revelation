@@ -192,7 +192,7 @@ void main() {
 	#endif
 
 	// Debug sky environment map
-	#if defined DEBUG_SKY_MAP && (defined DIMENSION_OVERWORLD)
+	#if defined DEBUG_SKY_MAP && (defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END)
 		if (all(lessThan(texelPos, textureSize(skyEnvMapTex, 0)))) {
 			color = texelFetch(skyEnvMapTex, texelPos, 0).rgb;
 		}

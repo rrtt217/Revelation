@@ -110,7 +110,7 @@ void main() {
 
 		vec3 transmittance = AtmosphereTransmittance(atmosphereViewPos, worldDir);
 		vec3 skyRadiance = AtmosphereSkyView(atmosphereViewPos, worldDir, sunDirWorld);
-		#ifdef DIMENSION_OVERWORLD
+		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 
 		sceneOut = skyRadiance;
 
@@ -219,7 +219,11 @@ void main() {
 		#endif
 
 		// Sunlight
+		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 		vec3 sunlightBase = cloudShadow * saturate(lightmap.y * 1e6 + float(isEyeInWater)) * global.directIlluminance;
+		#else
+		vec3 sunlightBase = vec3(0.0);
+		#endif
 
 		float distanceFade = linearstep(shadowDistance - 8.0, shadowDistance, length(viewPos.xz));
 		#if defined LOD_MOD
@@ -346,8 +350,10 @@ void main() {
 		// Minimal ambient light
 		diffuseRadiance += (worldNormal.y * 0.4 + 0.6) * max(MINIMUM_AMBIENT_BRIGHTNESS, 5e-3 * nightVision) * ao;
 
+		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 		// Apply diffuse color (baseColor * (1 - metallic))
 		material.metallic *= 0.2 * lightmap.y + 0.8;
+		#endif
 		diffuseRadiance *= albedo * oms(material.metallic);
 
 		// Indirect specular

@@ -210,7 +210,7 @@ void main() {
 		}
 
 		// Border fog
-		#if defined BORDER_FOG && defined DIMENSION_OVERWORLD
+		#if defined BORDER_FOG && (defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END)
 			if (isEyeInWater == 0) {
 				float density = exp2(-0.1 * max0(worldPos.y - 63.0)) * pow8(sdot(worldPos.xz) * rcp(lodRenderDist * lodRenderDist));
 				float transmittance = exp2(-BORDER_FOG_FALLOFF * density);
