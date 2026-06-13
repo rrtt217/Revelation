@@ -141,7 +141,7 @@ void main() {
 			sceneOut += celestial * transmittance;
 		}
 		#else
-			sceneOut = netherFogColor * 0.07;
+			sceneOut = netherFogColor * 0.01;
 		#endif
 	} else {
 		vec3 screenPos = vec3(screenCoord, loadDepth0(texelPos));
@@ -222,7 +222,7 @@ void main() {
 		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 		vec3 sunlightBase = cloudShadow * saturate(lightmap.y * 1e6 + float(isEyeInWater)) * global.directIlluminance;
 		#else
-		vec3 sunlightBase = netherFogColor * 0.07;
+		vec3 sunlightBase = vec3(0.0);
 		#endif
 
 		float distanceFade = linearstep(shadowDistance - 8.0, shadowDistance, length(viewPos.xz));
@@ -241,6 +241,7 @@ void main() {
         NdotL = saturate(NdotL);
         NdotV = saturate(NdotV);
 
+		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 		// Shadows and SSS
 		if (NdotL + sssAmount > EPS) {
 			vec3 shadow = vec3(saturate(NdotL * FLT_MAX));
@@ -280,6 +281,7 @@ void main() {
 				specularRadiance += shadow * SpecularGGX(VdotH, NdotV, NdotL, NdotH, material.roughness, material.reflectance) * NdotL;
 			}
 		}
+		#endif
 
 		// Ambient occlusion
 		#if AO_ENABLED > 0 && !defined SSILVB_ENABLED
@@ -348,7 +350,11 @@ void main() {
 		#endif
 
 		// Minimal ambient light
+		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 		diffuseRadiance += (worldNormal.y * 0.4 + 0.6) * max(MINIMUM_AMBIENT_BRIGHTNESS, 5e-3 * nightVision) * ao;
+		#else if defined DIMENSION_NETHER
+		diffuseRadiance += (worldNormal.y * 0.4 + 0.6) * max(0.001, 5e-3 * nightVision) * ao * netherFogColor;
+		#endif
 
 		// Apply diffuse color (baseColor * (1 - metallic))
 		material.metallic *= 0.2 * lightmap.y + 0.8;

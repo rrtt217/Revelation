@@ -25,7 +25,7 @@ vec4 CalculateSpecularReflections(Material material, vec3 worldNormal, vec3 worl
 		reflection.rgb = skyRadiance * smoothstep(0.4, 0.8, skylight);
 	}
 	#else
-		reflection.rgb = netherFogColor * 0.025;
+		reflection.rgb = netherFogColor * 0.01;
 	#endif
 
 	uint stepCount = uint(SSRT_MAX_SAMPLES * oms(material.roughness * 0.75));
