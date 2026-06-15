@@ -1,4 +1,4 @@
 #version 460 compatibility
 #define DIMENSION_THE_NETHER
 
-#include "/program/post/Upscale.comp"
+#include "/program/post/SR/Upscale.comp"

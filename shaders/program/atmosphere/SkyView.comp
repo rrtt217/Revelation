@@ -68,10 +68,12 @@ vec3 RenderSkyView(vec2 uv) {
 
 //======// Main //================================================================================//
 void main() {
-	#ifdef DIMENSION_OVERWORLD
+	#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 	ivec2 tid = ivec2(gl_GlobalInvocationID.xy);
 	vec2 uv = (vec2(tid) + 0.5) * rcp(imageSize(skyViewImg));
 
 	imageStore(skyViewImg, tid, EncodeRGBE8(RenderSkyView(uv)));
+	#else
+	imageStore(skyViewImg, ivec2(gl_GlobalInvocationID.xy), vec4(0.0));
 	#endif
 }
