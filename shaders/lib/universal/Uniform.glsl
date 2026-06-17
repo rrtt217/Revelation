@@ -158,7 +158,11 @@ uniform vec3 sunDirWorld;
 uniform vec3 moonDirWorld;
 uniform vec3 shadowDirWorld;
 uniform vec3 shadowDirView;
+#ifdef NETHER_FOG_COMPATIBILITY_MODE
+#define netherFogColor fogColor
+#else
 uniform vec3 netherFogColor;
+#endif
 
 uniform bool historyReset;
 

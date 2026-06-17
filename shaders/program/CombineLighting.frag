@@ -353,7 +353,7 @@ void main() {
 		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 		diffuseRadiance += (worldNormal.y * 0.4 + 0.6) * max(MINIMUM_AMBIENT_BRIGHTNESS, 5e-3 * nightVision) * ao;
 		#elif defined DIMENSION_THE_NETHER
-		diffuseRadiance += (worldNormal.y * 0.4 + 0.6) * max(0.01, 5e-3 * nightVision) * ao * netherFogColor;
+		diffuseRadiance += (worldNormal.y * 0.4 + 0.6) * max(NETHER_MINIMUM_AMBIENT_BRIGHTNESS, 5e-3 * nightVision) * ao * netherFogColor;
 		#endif
 
 		// Apply diffuse color (baseColor * (1 - metallic))
