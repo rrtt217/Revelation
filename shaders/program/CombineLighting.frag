@@ -141,7 +141,7 @@ void main() {
 			sceneOut += celestial * transmittance;
 		}
 		#else
-			sceneOut = netherFogColor * 0.01;
+			sceneOut = netherFogColor * 0.005;
 		#endif
 	} else {
 		vec3 screenPos = vec3(screenCoord, loadDepth0(texelPos));
@@ -352,8 +352,8 @@ void main() {
 		// Minimal ambient light
 		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 		diffuseRadiance += (worldNormal.y * 0.4 + 0.6) * max(MINIMUM_AMBIENT_BRIGHTNESS, 5e-3 * nightVision) * ao;
-		#else if defined DIMENSION_NETHER
-		diffuseRadiance += (worldNormal.y * 0.4 + 0.6) * max(0.001, 5e-3 * nightVision) * ao * netherFogColor;
+		#elif defined DIMENSION_THE_NETHER
+		diffuseRadiance += (worldNormal.y * 0.4 + 0.6) * max(0.01, 5e-3 * nightVision) * ao * netherFogColor;
 		#endif
 
 		// Apply diffuse color (baseColor * (1 - metallic))

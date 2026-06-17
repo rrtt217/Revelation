@@ -22,4 +22,10 @@ void RenderVanillaFog(inout vec3 color, inout float fogTransmittance, float view
 		color *= exp(-viewDistance * blindness);
 		color *= smoothstep(12.0, 2.0, darknessFactor * viewDistance);
 	#endif
+
+	#if defined DIMENSION_THE_NETHER && defined NETHER_FOG
+		// Nether fog
+		fogTransmittance = exp2(-0.005 * NETHER_FOG_DENSITY * viewDistance);
+		color = mix(netherFogColor * 0.1 * NETHER_FOG_BRIGHTNESS, color, fogTransmittance);
+	#endif
 }
