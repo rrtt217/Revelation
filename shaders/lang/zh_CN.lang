@@ -23,6 +23,7 @@ screen.MidLevelClouds=中云族
 screen.HighLevelClouds=高云族
 
 screen.Fog=雾
+screen.Nether=下界雾
 screen.Volumetric=体积雾
 screen.Rainbows=彩虹
 
@@ -188,6 +189,11 @@ option.LAVA_FOG=岩浆雾
 option.POWDERED_SNOW_FOG=细雪雾
 option.BLINDNESS_DARKNESS_FOG=失明&黑暗雾
 
+option.NETHER_FOG=下界雾
+option.NETHER_FOG_COMPATIBILITY_MODE=下界雾兼容模式
+option.NETHER_FOG_DENSITY=下界雾密度
+option.NETHER_FOG_BRIGHTNESS=下界雾亮度
+
 # Weather
 option.RAIN_PUDDLES=雨水坑
 option.RAIN_PUDDLE_SCALE=雨水坑缩放
@@ -258,6 +264,7 @@ option.HELD_LIGHT_BRIGHTNESS=手持光照亮度
 option.NIGHT_BRIGHTNESS=夜间亮度
 prefix.NIGHT_BRIGHTNESS=2^
 option.MINIMUM_AMBIENT_BRIGHTNESS=基础环境光亮度
+option.NETHER_MINIMUM_AMBIENT_BRIGHTNESS=下界基础环境光亮度
 
 option.AO_ENABLED=环境光遮蔽
 option.AO_MULTI_BOUNCE=多重散射拟合

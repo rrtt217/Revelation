@@ -23,6 +23,7 @@ screen.MidLevelClouds=Mid-level Clouds
 screen.HighLevelClouds=High-level Clouds
 
 screen.Fog=Fog
+screen.Nether=Nether Fog
 screen.Volumetric=Volumetric Fog
 screen.Rainbows=Rainbows
 
@@ -184,6 +185,11 @@ option.LAVA_FOG=Lava Fog
 option.POWDERED_SNOW_FOG=Powdered Snow Fog
 option.BLINDNESS_DARKNESS_FOG=Blindness & Darkness Fog
 
+option.NETHER_FOG=Nether Fog
+option.NETHER_FOG_COMPATIBILITY_MODE=Nether Fog Compatibility Mode
+option.NETHER_FOG_DENSITY=Nether Fog Density
+option.NETHER_FOG_BRIGHTNESS=Nether Fog Brightness
+
 # Weather
 option.RAIN_PUDDLES=Rain Puddles
 option.RAIN_PUDDLE_SCALE=Rain Puddle Scale
@@ -254,6 +260,7 @@ option.HELD_LIGHT_BRIGHTNESS=Held Light Brightness
 option.NIGHT_BRIGHTNESS=Night Brightness
 prefix.NIGHT_BRIGHTNESS=2^
 option.MINIMUM_AMBIENT_BRIGHTNESS=Minimum Ambient Brightness
+option.NETHER_MINIMUM_AMBIENT_BRIGHTNESS=Nether Minimum Ambient Brightness
 
 option.AO_ENABLED=AO
 option.AO_MULTI_BOUNCE=AO Multi-bounce
