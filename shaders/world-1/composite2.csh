@@ -1,4 +1,4 @@
 #version 460 compatibility
-#define DIMENSION_OVERWORLD
+#define DIMENSION_THE_NETHER
 
 #include "/program/Translucent.comp"
