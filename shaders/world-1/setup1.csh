@@ -2,6 +2,7 @@
 #define DIMENSION_THE_NETHER
 
 #define CLEAR_IMAGE cloudShadowImg
+#define CLEAR_IMAGE_FORMAT image2D
 #define CLEAR_COLOR vec4(1.0)
 
 layout(local_size_x = 16, local_size_y = 16) in;
