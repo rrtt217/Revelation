@@ -69,7 +69,22 @@ void main() {
 		vec4 history = texelFetch(skyEnvMapTex, tid, 0);
 		history.a *= float(!historyReset);
 
-		skyRadiance = mix(history.rgb, skyRadiance, rcp(min(++history.a, 64.0)));
+		// Adaptive accumulation to avoid long-tail ghosting:
+		// - Converge quickly during the first frames (weight = 1/N)
+		// - Once converged, use a fixed EMA time constant (1/32) that responds
+		//   faster than the old 1/64, halving the ghost tail length
+		// - If the new sample deviates strongly from history (scene change such
+		//   as clouds appearing or the sun moving), boost the weight so stale
+		//   history is flushed out instead of lingering as a long tail
+		float count = min(++history.a, 32.0);
+		float weight = rcp(count);
+
+		float lumHist = max(dot(history.rgb, vec3(0.2126, 0.7152, 0.0722)), 1e-4);
+		float lumNew  = max(dot(skyRadiance, vec3(0.2126, 0.7152, 0.0722)), 1e-4);
+		float change  = abs(lumNew - lumHist) / max(lumHist, lumNew);
+		weight = max(weight, change * 0.25);
+
+		skyRadiance = mix(history.rgb, skyRadiance, weight);
 		imageStore(skyEnvMapImg, tid, vec4(skyRadiance, history.a));
 	}
 }
