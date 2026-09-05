@@ -2,7 +2,7 @@
 
 #define CLEAR_IMAGE colorimg3
 #define CLEAR_IMAGE_FORMAT image2D
-#define CLEAR_COLOR vec4(0.0)
+#define CLEAR_COLOR vec4(0.0, 0.0, 0.0, 0.0)
 
 #define CLEAR_IMAGE1 colorimg6
 #define CLEAR_IMAGE_FORMAT1 image2D
@@ -14,11 +14,11 @@
 
 #define CLEAR_IMAGE3 colorimg8
 #define CLEAR_IMAGE_FORMAT3 image2D
-#define CLEAR_COLOR3 vec4(0.0)
+#define CLEAR_COLOR3 vec4(0.0, 0.0, 0.0, 0.0)
 
 #define CLEAR_IMAGE4 colorimg12
 #define CLEAR_IMAGE_FORMAT4 image2D
-#define CLEAR_COLOR4 vec4(0.0)
+#define CLEAR_COLOR4 vec4(0.0, 0.0, 0.0, 0.0)
 
 #include "/lib/Utility.glsl"
 
