@@ -53,6 +53,11 @@ const float realShadowMapRes = float(shadowMapResolution) * MC_SHADOW_QUALITY;
 	#define LAVA_FOG
 	#define POWDERED_SNOW_FOG
 	#define BLINDNESS_DARKNESS_FOG
+	#define NETHER_FOG
+
+	#define NETHER_FOG_COMPATIBILITY_MODE
+	#define NETHER_FOG_DENSITY 1.0 // [0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2.0]
+	#define NETHER_FOG_BRIGHTNESS 1.0 // [0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2.0]
 
 	#define VOLUMETRIC_FOG
 	#define VF_MAX_SAMPLES 16 // [2 4 6 8 9 10 12 14 15 16 18 20 24 28 30 40 50 70 100 150 200 300 500]
@@ -77,6 +82,8 @@ const float realShadowMapRes = float(shadowMapResolution) * MC_SHADOW_QUALITY;
 	#ifdef PER_BIOME_FOG
 	#endif
 	#ifdef VF_TIME_FADE
+	#endif
+	#ifdef NETHER_FOG
 	#endif
 
 /* Transparent */
@@ -130,6 +137,7 @@ const float realShadowMapRes = float(shadowMapResolution) * MC_SHADOW_QUALITY;
 
 /* Lighting Brightness */
 	#define MINIMUM_AMBIENT_BRIGHTNESS 0.0001 // [0.0 0.00001 0.00002 0.00003 0.00005 0.00007 0.0001 0.0002 0.0003 0.0004 0.0005 0.0006 0.0007 0.0008 0.0009 0.001 0.0015 0.002 0.0025 0.003 0.004 0.005 0.006 0.007 0.01 0.05 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0]
+	#define NETHER_MINIMUM_AMBIENT_BRIGHTNESS 0.01 // [0.0 0.00001 0.00002 0.00003 0.00005 0.00007 0.0001 0.0002 0.0003 0.0004 0.0005 0.0006 0.0007 0.0008 0.0009 0.001 0.0015 0.002 0.0025 0.003 0.004 0.005 0.006 0.007 0.01 0.05 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0]
 	#define NIGHT_BRIGHTNESS 0.0 // [-8.0 -7.0 -6.0 -5.0 -4.0 -3.0 -2.0 -1.0 0.0 1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0]
 
 /* Global Illumination */

@@ -290,7 +290,9 @@ vec4 CalculateSSILVB(vec2 fragCoord, vec3 viewPos, vec3 worldNormal, float skyli
 	irradiance *= rSliceCount / float(sectorCount);
 	irradiance = vec4(irradiance.rgb, saturate(1.0 - irradiance.a));
 
+	#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 	vec3 skyIrradiance = ConvolvedReconstructSH3(global.skySH, worldNormal);
 	irradiance.rgb += skyIrradiance * irradiance.a * cube(skylight);
+	#endif
 	return irradiance;
 }

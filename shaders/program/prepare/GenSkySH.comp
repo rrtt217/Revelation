@@ -67,6 +67,21 @@ void main() {
 	const uint samples = gl_WorkGroupSize.x;
 
 	uint index = gl_LocalInvocationIndex;
+	#if !defined DIMENSION_OVERWORLD && !defined DIMENSION_THE_END
+		// Nether has no directional sky lighting: collapse SH to a constant fog color
+		if (index == 0u) {
+			vec3 shCoeff[9];
+			for (uint band = 0u; band < 9u; ++band) shCoeff[band] = vec3(0.0);
+			// SH basis[0] = 1/(2*sqrt(pi)), so constant term = color * 4*pi * basis[0] / (4*pi) = color * basis[0]
+			// To reconstruct constant `color` via ReconstructSH3(sh, dir) = sum(band * basis(dir)),
+			// we need shCoeff[0] = color / basis[0]. ConvolvedReconstructSH3 uses the same convention.
+			shCoeff[0] = netherFogColor * 0.005 * rcp(0.28209479177387814); // 1/(2*sqrt(pi))
+
+			global.skySH = shCoeff;
+			global.skyUpIlluminance = netherFogColor * 0.005;
+		}
+		return;
+	#endif
 
 	// Sample and compute SH coefficients
 	vec3 direction = SampleUniformSphere(R2(index));

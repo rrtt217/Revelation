@@ -39,12 +39,17 @@ const ivec3 workGroups = ivec3(1, 1, 1);
 //======// Main //================================================================================//
 void main() {
 	// Compute illuminance
+	#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 	vec3 sunIlluminance = sunIrradiance * AtmosphereTransmittanceToSun(atmosphereViewPos, sunDirWorld);
 	vec3 moonIlluminance = moonIrradiance * AtmosphereTransmittanceToSun(atmosphereViewPos, moonDirWorld);
 	global.directIlluminance = sunIlluminance + moonIlluminance;
 
 	// Avoid the misalignment at sunrise and sunset
 	global.directIlluminance *= smoothstep(0.0, 0.01, shadowDirWorld.y);
+	#else
+	// No direct sunlight in the Nether
+	global.directIlluminance = vec3(0.0);
+	#endif
 
 	global.worldTimeDiff = worldTime - global.lastWorldTime;
     global.lastWorldTime = worldTime;

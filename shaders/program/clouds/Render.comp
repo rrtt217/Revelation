@@ -82,6 +82,7 @@ void main() {
 
 	CloudRenderResult result = CloudRenderResult(vec3(0.0), 1.0, 0.0);
 
+	#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 	if (SkyCheck4x4(scaleScreenUv(coord))) {
 		vec2 noise = SampleStbnVec2(texelPos, frameCounter + 11);
 
@@ -91,6 +92,7 @@ void main() {
 		vec3 skyRadiance = AtmosphereSkyView(atmosphereViewPos, worldDir, sunDirWorld);
 		result = RenderClouds(worldDir, noise, skyRadiance);
 	}
+	#endif
 
 	imageStore(cloudOriginImg, texelPos, vec4(result.scatteredLight, result.transmittance));
 	imageStore(cloudDepthImg, texelPos, vec4(result.frontDepth));

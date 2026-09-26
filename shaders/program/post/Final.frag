@@ -48,8 +48,12 @@ vec3 FFXCasFilter(in ivec2 texelPos, in float sharpness) {
     #endif
 
 	#ifndef CAS_ENABLED
-		return texelFetch(colortex0, texelPos, 0).rgb;
-	#endif
+        #ifdef HDR_ENABLED
+            return invReinhard(CasLoad(ivec2(0, 0)));
+        #else
+		    return CasLoad(ivec2(0, 0));
+        #endif
+    #endif
 
 	// a b c
 	// d e f

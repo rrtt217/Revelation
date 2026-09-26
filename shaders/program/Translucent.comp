@@ -58,10 +58,15 @@ vec4 CalculateSpecularReflections(vec3 viewPos, vec3 worldNormal, vec3 worldDir,
 	if (dot(worldNormal, rayDir) < EPS) return vec4(0.0, 0.0, 0.0, 1.0);
 
 	vec3 reflection = vec3(0.0);
+
+	#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 	if (skylight > EPS && isEyeInWater == 0) {
 		vec3 skyRadiance = textureBicubic(skyEnvMapTex, ProjectCubemap(rayDir, 96.0)).rgb;
 		reflection = skyRadiance * smoothstep(0.4, 0.8, skylight);
 	}
+	#else
+		reflection = netherFogColor * 0.01;
+	#endif
 
 	float ior = waterMask ? isEyeInWater == 1 ? 1.0 / WATER_IOR : WATER_IOR : GLASS_IOR;
 	float fresnel = FresnelDielectricN(NdotV, ior);
@@ -120,7 +125,8 @@ void main() {
 	if (isEyeInWater == 0) {
 		vec3 sceneOut = loadSceneMain(texelPos);
 
-		// Front to back atmopheric fog
+		// Front to back fog
+		#if !defined DIMENSION_THE_NETHER
 		#ifdef VOLUMETRIC_FOG
 			vec3 screenPosBack = vec3(screenPos.xy, loadDepth1(texelPos));
 			vec3 viewPosBack = ScreenToViewPos(screenPosBack);
@@ -147,6 +153,7 @@ void main() {
 				dot(shadowDirWorld, fogRay),
 				sceneOut
 			);
+		#endif
 		#endif
 
 		// Water fog
@@ -175,12 +182,17 @@ void main() {
 		NdotL = dot(worldNormal, shadowDirWorld);
 	} else {
 		// Skylight
+		#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 		lightingOut.rgb = global.skyUpIlluminance * cube(lightmap.y);
+		#else
+		lightingOut.rgb = netherFogColor * 0.01;
+		#endif
 
 		// Blocklight
 		lightingOut.rgb += CalculateBlocklightFalloff(lightmap.x) * blocklightColor;
 	}
 
+	#if defined DIMENSION_OVERWORLD || defined DIMENSION_THE_END
 	// Cloud shadows
 	#ifdef CLOUD_SHADOWS
 		vec2 cloudShadowCoord = WorldToCloudShadowScreenPos(worldPos).xy;
@@ -216,6 +228,7 @@ void main() {
 			}
 		}
 	}
+	#endif
 
 	imageStore(colorimg3, texelPos, lightingOut);
 }
