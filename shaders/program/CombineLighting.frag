@@ -317,6 +317,26 @@ void main() {
 				lightmap.x = CalculateBlocklightFalloff(lightmap.x);
 				diffuseRadiance += lightmap.x * (ao * oms(lightmap.x) + lightmap.x) * blocklightColor;
 			}
+		#else
+			// SSILVB only resolves skylight, and its screen-space rays are invalid for
+			// hand pixels (they use the uncorrected hand depth). Apply skylight and
+			// blocklight directly for the hand so it does not go pitch black.
+			if (handMask) {
+				if (lightmap.y > EPS) {
+					// Spherical harmonics skylight
+					vec3 skylight = ConvolvedReconstructSH3(global.skySH, worldNormal);
+					diffuseRadiance += skylight * cube(lightmap.y) * ao;
+
+					// Fake bounced light
+					float bounce = CalculateFakeBouncedLight(worldNormal);
+					diffuseRadiance += bounce * pow5(lightmap.y) * sunlightBase * ao;
+				}
+
+				if (lightmap.x > EPS) {
+					lightmap.x = CalculateBlocklightFalloff(lightmap.x);
+					diffuseRadiance += lightmap.x * (ao * oms(lightmap.x) + lightmap.x) * blocklightColor;
+				}
+			}
 		#endif
 
 		// Handheld light
